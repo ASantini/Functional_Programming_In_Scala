@@ -1,0 +1,30 @@
+package patmat
+
+
+object patmatWkst {
+  val testString = Huffman.string2Chars("He")
+  val testTimes = Huffman.times(testString)
+  val testfreqs = Huffman.makeOrderedLeafList(testTimes)
+    
+    
+          def insertSort(acc: List[Huffman.Leaf], remain: List[Huffman.Leaf], current: (Char,Int)): List[Huffman.Leaf] =
+          remain match {
+        		case List() => acc ::: List((Huffman.Leaf(current._1, current._2)))
+        		case y :: ys => if(y.weight < current._2)  acc ::: Huffman.Leaf(current._1, current._2) :: y :: ys
+          		else insertSort(remain.head :: acc, remain.tail, current)
+      }
+      
+  var testSort = insertSort(List(), List(), ('e', 1))
+  var testSort2 = insertSort(List(), testSort, ('H', 1))
+  var testSort3 = insertSort(List(), testSort2, ('L', 4))
+  var testSort4 = insertSort(List(), testSort3, ('a', 2))
+  
+  var testSort5 = insertSort(List(), testSort4, ('c', 3))
+                                                  
+                                                
+    Huffman.makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3)))
+  
+  
+ 
+ 
+}

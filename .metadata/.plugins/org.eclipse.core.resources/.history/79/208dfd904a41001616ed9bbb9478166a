@@ -1,0 +1,5 @@
+package patmat
+
+object patmatWkst {
+  println("Welcome to the Scala worksheet")
+}

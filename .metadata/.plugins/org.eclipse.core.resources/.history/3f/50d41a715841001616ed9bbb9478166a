@@ -1,0 +1,10 @@
+package patmat
+
+
+object patmatWkst {
+
+  val testString = Huffman.string2Chars("Hello World")
+                                                  //> testString  : List[Char] = List(H, e, l, l, o,  , W, o, r, l, d)
+  val testTimes = Huffman.times(testString)
+  val testfreqs = Huffman.makeOrderedLeafList(testTimes)
+}

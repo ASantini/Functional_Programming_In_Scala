@@ -1,0 +1,14 @@
+package patmat
+
+object patmatWorksheet {
+	
+  
+  
+  val testlist = string2Chars("Hello World")
+  
+  
+  
+  
+  
+  
+}

@@ -1,0 +1,8 @@
+package patmat
+
+object patmatWkst {
+  
+
+  val testString = Huffman.string2Chars("Hello World") //> testString  : List[Char] = List(H, e, l, l, o)
+  val testTimes = Huffman.times(testString)       //> testTimes  : List[(Char, Int)] = List((o,1), (e,1), (H,1), (l,2))
+}
