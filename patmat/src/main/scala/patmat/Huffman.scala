@@ -106,12 +106,12 @@ object Huffman {
       // remain = the old sorted list
       
       def insertSort(acc: List[Leaf], remain: List[Leaf], current: (Char,Int)): List[Leaf] =
-          acc match {
+          remain match {
         case List() => acc ::: List(Leaf(current._1, current._2))
         case y :: ys => if(y.weight < current._2) acc ::: Leaf(current._1, current._2) :: y :: ys
           else insertSort(remain.head :: acc, remain.tail, current)
       }
-      createList(freqs, List())
+      createList(freqs, List()).reverse
     }
   
   /**

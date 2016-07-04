@@ -5,7 +5,7 @@ object patmatWkst {
   val testString = Huffman.string2Chars("He")     //> testString  : List[Char] = List(H, e)
   val testTimes = Huffman.times(testString)       //> testTimes  : List[(Char, Int)] = List((e,1), (H,1))
   val testfreqs = Huffman.makeOrderedLeafList(testTimes)
-                                                  //> testfreqs  : List[patmat.Huffman.Leaf] = List(Leaf(H,1))
+                                                  //> testfreqs  : List[patmat.Huffman.Leaf] = List(Leaf(H,1), Leaf(e,1))
     
     
           def insertSort(acc: List[Huffman.Leaf], remain: List[Huffman.Leaf], current: (Char,Int)): List[Huffman.Leaf] =
@@ -16,26 +16,33 @@ object patmatWkst {
       }                                           //> insertSort: (acc: List[patmat.Huffman.Leaf], remain: List[patmat.Huffman.Lea
                                                   //| f], current: (Char, Int))List[patmat.Huffman.Leaf]
       
+      def createList(remaining: List[(Char, Int)], acc: List[Huffman.Leaf]): List[Huffman.Leaf] = remaining match {
+        case List() => acc
+        case y :: ys => createList(ys, insertSort(List(), acc, y))
+      }                                           //> createList: (remaining: List[(Char, Int)], acc: List[patmat.Huffman.Leaf])Li
+                                                  //| st[patmat.Huffman.Leaf]
+      
   var testSort = insertSort(List(), List(), ('e', 1))
                                                   //> testSort  : List[patmat.Huffman.Leaf] = List(Leaf(e,1))
   var testSort2 = insertSort(List(), testSort, ('H', 1))
                                                   //> testSort2  : List[patmat.Huffman.Leaf] = List(Leaf(e,1), Leaf(H,1))
   var testSort3 = insertSort(List(), testSort2, ('L', 4))
-                                                  //> testSort3  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(e,1), Leaf(H,1
-                                                  //| ))
+                                                  //> testSort3  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(e,1), Leaf(H,
+                                                  //| 1))
   var testSort4 = insertSort(List(), testSort3, ('a', 2))
-                                                  //> testSort4  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(a,2), Leaf(e,1
-                                                  //| ), Leaf(H,1))
+                                                  //> testSort4  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(a,2), Leaf(e,
+                                                  //| 1), Leaf(H,1))
   
   var testSort5 = insertSort(List(), testSort4, ('c', 3))
-                                                  //> testSort5  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(c,3), Leaf(a,2
-                                                  //| ), Leaf(e,1), Leaf(H,1))
-                                                  
+                                                  //> testSort5  : List[patmat.Huffman.Leaf] = List(Leaf(L,4), Leaf(c,3), Leaf(a,
+                                                  //| 2), Leaf(e,1), Leaf(H,1))
+                                                 
                                                 
-    Huffman.makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3)))
-                                                  //> res0: List[patmat.Huffman.Leaf] = List(Leaf(x,3))
+    createList(List(('t', 2), ('e', 1), ('x', 3)), List()).reverse
+                                                  //> res0: List[patmat.Huffman.Leaf] = List(Leaf(e,1), Leaf(t,2), Leaf(x,3))
   
-  
+  Huffman.makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3)))
+                                                  //> res1: List[patmat.Huffman.Leaf] = List(Leaf(e,1), Leaf(t,2), Leaf(x,3))
  
  
 }
