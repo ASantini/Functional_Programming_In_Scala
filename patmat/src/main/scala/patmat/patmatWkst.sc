@@ -44,5 +44,16 @@ object patmatWkst {
   Huffman.makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3)))
                                                   //> res1: List[patmat.Huffman.Leaf] = List(Leaf(e,1), Leaf(t,2), Leaf(x,3))
  
- 
+Huffman.singleton(List(Huffman.Leaf('c', 2), Huffman.Leaf('d', 3)))
+                                                  //> res2: Boolean = false
+
+//List(Huffman.Leaf('c', 2), Huffman.Leaf('d', 3))
+val testTree = Huffman.combine(List(Huffman.Leaf('c', 2), Huffman.Leaf('d', 3)))
+                                                  //> testTree  : List[patmat.Huffman.CodeTree] = List(Fork(Leaf(c,2),Leaf(d,3),L
+                                                  //| ist(c, d),5))
+                                                  
+Huffman.singleton(testTree)                       //> res3: Boolean = true
+
+Huffman.makeCodeTree(Huffman.Leaf('c', 2), Huffman.Leaf('d', 3))
+                                                  //> res4: patmat.Huffman.Fork = Fork(Leaf(c,2),Leaf(d,3),List(c, d),5)
 }
