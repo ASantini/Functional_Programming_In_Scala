@@ -118,6 +118,7 @@ object Huffman {
    * Checks whether the list `trees` contains only one single code tree.
    */
     def singleton(trees: List[CodeTree]): Boolean = trees match {
+      case Nil => false
       case x :: List() => true
       case x :: xs => false 
     }
@@ -137,9 +138,16 @@ object Huffman {
     def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
       case List() => List()
       case x :: List() => trees
-      case x :: xs => combine(makeCodeTree(x, xs.head) :: xs.tail)
+      case x :: xs => List(makeCodeTree(x, xs.head)) ::: xs.tail
       }
-  
+    /*
+    def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
+      case List() => List()
+      case x :: List() => trees
+      case x :: xs => combine(List(makeCodeTree(x, xs.head)) ::: xs.tail)
+      }
+    */
+     
   /**
    * This function will be called in the following way:
    *
@@ -157,8 +165,9 @@ object Huffman {
    *    the example invocation. Also define the return type of the `until` function.
    *  - try to find sensible parameter names for `xxx`, `yyy` and `zzz`.
    */
-    def until(isSingle: List[CodeTree] => Boolean, combine: List[CodeTree] => List[CodeTree])(trees: List[CodeTree]): List[CodeTree] = 
-      if (isSingle(trees)) trees else until(isSingle, combine)(trees)
+    def until(singleton: List[CodeTree] => Boolean, combine: List[CodeTree] => List[CodeTree])(trees: List[CodeTree]): List[CodeTree] = 
+      if (singleton(trees)) trees
+      else until(singleton, combine)(combine(trees))
   
   /**
    * This function creates a code tree which is optimal to encode the text `chars`.
@@ -166,9 +175,10 @@ object Huffman {
    * The parameter `chars` is an arbitrary text. This function extracts the character
    * frequencies from that text and creates a code tree based on them.
    */
-    def createCodeTree(chars: List[Char]): CodeTree = ???
-  
+    def createCodeTree(chars: List[Char]): CodeTree = 
+      until(singleton, combine)(makeOrderedLeafList(times(chars))).head
 
+//makeOrderedLeafList(times(chars))
   // Part 3: Decoding
 
   type Bit = Int
@@ -177,7 +187,12 @@ object Huffman {
    * This function decodes the bit sequence `bits` using the code tree `tree` and returns
    * the resulting list of characters.
    */
-    def decode(tree: CodeTree, bits: List[Bit]): List[Char] = ???
+    def decode(tree: CodeTree, bits: List[Bit]): List[Char] = {
+        def loop(subTree: CodeTree, bits: List[Bit], acc: List[Char]): List[Char] = subTree match { 
+          x :: Nil => 
+          x :: xs => 
+        }
+      }
   
   /**
    * A Huffman coding tree for the French language.
